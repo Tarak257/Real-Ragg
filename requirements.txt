@@ -1,0 +1,14 @@
+langchain
+langchain-community
+langchain-google-genai
+langchain-chroma
+chromadb
+pypdf
+streamlit
+python-dotenv
+rank-bm25
+numpy
+scikit-learn
+fastapi
+uvicorn
+python-multipart

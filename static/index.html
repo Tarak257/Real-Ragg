@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build_RAG Engine - Intelligent Document Q&A</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Marked.js for markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Banner -->
+        <header class="main-header">
+            <div class="header-brand">
+                <div class="logo-icon">⚡</div>
+                <div>
+                    <h1 class="main-title">Build_RAG Engine</h1>
+                    <p class="main-subtitle">Intelligent RAG Document Question & Answering System</p>
+                </div>
+            </div>
+
+            <!-- Header Status Badges -->
+            <div class="header-status" id="headerStatus">
+                <div class="status-badge" id="statusDocBadge">
+                    <span class="status-icon">📄</span>
+                    <span id="docNameText">Loading doc...</span>
+                </div>
+                <div class="status-badge" id="statusChunksBadge">
+                    <span class="status-icon">🧩</span>
+                    <span id="chunksCountText">0 Chunks</span>
+                </div>
+                <div class="status-badge status-online">
+                    <span class="status-dot"></span>
+                    <span>Backend Ready</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Document Management & Upload Bar -->
+        <section class="upload-section glass-card">
+            <div class="section-header">
+                <h3>📁 Document Hub</h3>
+                <span class="sub-text">Upload a PDF or TXT document to query instant insights</span>
+            </div>
+
+            <div class="upload-zone" id="uploadZone">
+                <input type="file" id="fileInput" accept=".pdf,.txt" style="display: none;">
+                <div class="upload-content">
+                    <div class="upload-icon">📤</div>
+                    <div class="upload-text">
+                        <strong>Click to upload document</strong> or drag & drop file here
+                    </div>
+                    <div class="upload-hint">Supported formats: PDF (.pdf), Plain Text (.txt)</div>
+                </div>
+            </div>
+
+            <div class="upload-progress" id="uploadProgress" style="display: none;">
+                <div class="spinner"></div>
+                <span id="uploadStatusText">Ingesting document & generating embeddings...</span>
+            </div>
+        </section>
+
+        <!-- Quick Test Query Chips -->
+        <section class="quick-prompts-section">
+            <span class="quick-title">Quick Queries:</span>
+            <div class="chips-container">
+                <button class="prompt-chip" onclick="fillPrompt('Summarize the main document topics')">
+                    💡 Summarize main topics
+                </button>
+                <button class="prompt-chip" onclick="fillPrompt('What technical skills are listed?')">
+                    🛠️ Technical skills
+                </button>
+                <button class="prompt-chip" onclick="fillPrompt('What project achievements are highlighted?')">
+                    🏆 Key project achievements
+                </button>
+                <button class="prompt-chip" onclick="fillPrompt('What education and certifications are mentioned?')">
+                    🎓 Education & background
+                </button>
+            </div>
+        </section>
+
+        <!-- Chat / Q&A Feed Section -->
+        <main class="chat-section">
+            <div class="chat-feed" id="chatFeed">
+                <!-- Welcome Message Card -->
+                <div class="message-card system-card glass-card">
+                    <div class="card-header">
+                        <span class="bot-avatar">🤖</span>
+                        <span class="author-name">RAG AI Assistant</span>
+                    </div>
+                    <div class="card-body">
+                        Hello! I am ready to answer your questions based on your active document. Select a quick query above or type your question below.
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Query Input Bar -->
+        <footer class="input-footer">
+            <form id="queryForm" class="input-form">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="questionInput" 
+                        placeholder="Ask anything about your document..." 
+                        autocomplete="off"
+                        required
+                    />
+                    <button type="submit" id="sendBtn" class="send-btn">
+                        <span>Send</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </footer>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
